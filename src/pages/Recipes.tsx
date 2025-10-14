@@ -34,7 +34,7 @@ const Recipes = () => {
           title: item.title,
           description: item.description,
           tags: item.tag ? [item.tag] : [], // wrap single tag as array
-          image: item.image?.url ? `${item.image.url}` : '/images/no-image.png',
+          image: item.image?.url ? `${item.image.url}` : '/images/no-image.webp',
         }));
   
         setRecipes(mappedRecipes);
