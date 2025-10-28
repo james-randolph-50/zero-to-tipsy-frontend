@@ -6,7 +6,7 @@ interface RecipeCardProps {
 }
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
-  const { image, title, description, documentId, category } = recipe;
+  const { image, title, description, documentId } = recipe;
 
   // Build a URL for the detail page using documentId
   const recipeUrl = `/recipes/${documentId}`;
@@ -20,18 +20,6 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
         <div className="p-4 flex flex-col gap-2">
           <h2 className="text-lg font-bold">{title}</h2>
           <p className="text-gray-600 text-sm line-clamp-3">{description}</p>
-          {category && category.length > 0 && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {category.map((tag) => (
-                <span
-                  key={tag}
-                  className={"px-2 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-800"}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-          )}
         </div>
       </div>
     </Link>
