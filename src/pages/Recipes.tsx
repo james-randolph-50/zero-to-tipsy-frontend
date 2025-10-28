@@ -9,7 +9,7 @@ type Recipe = {
   image?: string;
   title: string;
   description: string;
-  tags?: string[];
+  category: string[];
   instructions: any[];
   ingredients: any[];
 };
@@ -36,7 +36,7 @@ console.log("recipes:", recipes);
     const matchesTags =
       selectedTags.length === 0 ||
       selectedTags.every((tag) =>
-        recipe.tags.some(
+        recipe.category.some(
           (recipeTag) => recipeTag.toLowerCase() === tag.toLowerCase()
         )
       );
