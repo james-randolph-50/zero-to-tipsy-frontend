@@ -10,9 +10,10 @@ type Recipe = {
   title: string;
   description: string;
   tags: string[];
-  steps: any[];
+  instructions: any[];
   ingredients: any[];
 };
+console.log("Recipe:", Recipe);
 
 const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
 
@@ -26,7 +27,7 @@ const Recipes = () => {
       .then(setRecipes)
       .catch((error) => console.error("Failed to fetch recipes:", error));
   }, []);
-console.log("recipes:", recipes);
+
   // Filter recipes by search text and selected tags
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch =
