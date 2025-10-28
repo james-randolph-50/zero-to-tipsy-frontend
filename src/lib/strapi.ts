@@ -8,7 +8,5 @@ export async function fetchRecipes() {
   }
 
   const data = await res.json();
-  console.log("the data is coming_");
   return data.data; // Strapi wraps everything in { data: [...] }
-  console.log("data:", data);
 }

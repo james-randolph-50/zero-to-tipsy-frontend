@@ -16,7 +16,7 @@ const RecipeDetail = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`${API_URL}/api/recipes?filters[documentId][$eq]=${documentId}&populate=*`);
+        const response = await fetch(`${API_URL}/recipes?filters[documentId][$eq]=${documentId}&populate=*`);
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }
