@@ -14,12 +14,12 @@ type Recipe = {
   ingredients: any[];
 };
 
-const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
+const allCategories = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   useEffect(() => {
     fetchRecipes()
@@ -34,10 +34,10 @@ console.log("recipes:", recipes);
       recipe.description.toLowerCase().includes(search.toLowerCase());
 
     const matchesTags =
-      selectedTags.length === 0 ||
-      selectedTags.every((tag) =>
+      selectedCategories.length === 0 ||
+      selectedCategories.every((category) =>
         recipe.category.some(
-          (recipeTag) => recipeTag.toLowerCase() === tag.toLowerCase()
+          (recipeCategory) => recipeCategory.toLowerCase() === category.toLowerCase()
         )
       );
 
@@ -45,7 +45,7 @@ console.log("recipes:", recipes);
   });
 
   const toggleTag = (tag: string) => {
-    setSelectedTags((prev) =>
+    setSelectedCategories((prev) =>
       prev.includes(tag)
         ? prev.filter((t) => t !== tag)
         : [...prev, tag]
@@ -67,12 +67,12 @@ console.log("recipes:", recipes);
 
       {/* Tags filter */}
       <div className="flex gap-2 mb-6 flex-wrap">
-        {allTags.map((tag) => (
+        {allCategories.map((tag) => (
           <button
             key={tag}
             onClick={() => toggleTag(tag)}
             className={`px-3 py-1 rounded border ${
-              selectedTags.includes(tag)
+              selectedCategories.includes(tag)
                 ? "bg-blue-500 text-white"
                 : "bg-white text-black"
             }`}
@@ -90,6 +90,7 @@ console.log("recipes:", recipes);
               <RecipeCard
                 recipe={{
                   ...recipe,
+                  category: recipe.category,
                   url: `/recipes/${recipe.documentId}`,
                 }}
               />

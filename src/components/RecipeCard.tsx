@@ -5,7 +5,7 @@ type Recipe = {
   image?: string;
   title: string;
   description: string;
-  tags: string[];
+  category: string[];
   url?: string;
 };
 
@@ -23,7 +23,7 @@ type RecipeCardProps = {
   };
 
 const RecipeCard = ({ recipe }: RecipeCardProps) => {
-  const { image, title, description, tags, url } = recipe;
+  const { image, title, description, category, url } = recipe;
   return (
     <>
     <Link to={url ?? '#'} className="block transition hover:scale-[1.01] duration-300">
@@ -35,7 +35,7 @@ const RecipeCard = ({ recipe }: RecipeCardProps) => {
           <h2 className="text-lg font-bold">{title}</h2>
           <p className="text-gray-600 text-sm line-clamp-3">{description}</p>
           <div className="flex flex-wrap gap-2 mt-2">
-            {tags.map((tag) => (
+            {category.map((tag) => (
               <span
                 key={tag}
                 className={`px-2 py-1 rounded-full text-xs font-medium ${tagColors[tag] || "bg-gray-200 text-gray-800"}`}
