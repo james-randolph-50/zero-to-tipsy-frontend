@@ -10,47 +10,48 @@ type Recipe = {
   title: string;
   description: string;
   category: string[];
+  tags?: string[];
   instructions: any[];
   ingredients: any[];
+  url?: string;
 };
 
-const allCategories = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
+// const allCategories = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
   const [search, setSearch] = useState("");
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  // const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
 
   useEffect(() => {
     fetchRecipes()
       .then(setRecipes)
       .catch((error) => console.error("Failed to fetch recipes:", error));
   }, []);
-console.log("recipes:", recipes);
   // Filter recipes by search text and selected tags
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch =
       recipe.title.toLowerCase().includes(search.toLowerCase()) ||
       recipe.description.toLowerCase().includes(search.toLowerCase());
 
-    const matchesTags =
-      selectedCategories.length === 0 ||
-      selectedCategories.every((category) =>
-        recipe.category.some(
-          (recipeCategory) => recipeCategory.toLowerCase() === category.toLowerCase()
-        )
-      );
+    // const matchesTags =
+    //   selectedCategories.length === 0 ||
+    //   selectedCategories.every((category) =>
+    //     recipe.category.some(
+    //       (recipeCategory) => recipeCategory.toLowerCase() === category.toLowerCase()
+    //     )
+    //   );
 
-    return matchesSearch && matchesTags;
+    return matchesSearch;
   });
 
-  const toggleTag = (tag: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(tag)
-        ? prev.filter((t) => t !== tag)
-        : [...prev, tag]
-    );
-  };
+  // const toggleTag = (tag: string) => {
+  //   setSelectedCategories((prev) =>
+  //     prev.includes(tag)
+  //       ? prev.filter((t) => t !== tag)
+  //       : [...prev, tag]
+  //   );
+  // };
 
   return (
     <div className="p-6">
@@ -66,7 +67,7 @@ console.log("recipes:", recipes);
       />
 
       {/* Tags filter */}
-      <div className="flex gap-2 mb-6 flex-wrap">
+      {/* <div className="flex gap-2 mb-6 flex-wrap">
         {allCategories.map((tag) => (
           <button
             key={tag}
@@ -80,7 +81,7 @@ console.log("recipes:", recipes);
             {tag}
           </button>
         ))}
-      </div>
+      </div> */}
 
       {/* Recipes grid */}
       <AnimatePresence mode="wait">
@@ -90,7 +91,6 @@ console.log("recipes:", recipes);
               <RecipeCard
                 recipe={{
                   ...recipe,
-                  category: recipe.category,
                   url: `/recipes/${recipe.documentId}`,
                 }}
               />

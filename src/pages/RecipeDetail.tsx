@@ -6,7 +6,7 @@ type Recipe = {
   image?: string;
   title: string;
   description: string;
-  tags: string[];
+  // tags: string[];
   steps: string[];
   ingredients: string[];
 };
@@ -51,7 +51,7 @@ const RecipeDetail = () => {
           id: item.id,
           title: item.title,
           description: item.description,
-          tags: item.tag ? [item.tag] : [],
+          // tags: item.tag ? [item.tag] : [],
           image: item.image?.url ? `${item.image.url}` : undefined,
           steps,
           ingredients,
@@ -91,7 +91,7 @@ const RecipeDetail = () => {
       )}
       <p className="text-gray-700 mb-4">{recipe.description}</p>
       <p className="text-gray-700 mb-4">{recipe.ingredients}</p>
-      {recipe.tags.length > 0 && (
+      {/* {recipe.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {recipe.tags.map(tag => (
             <span key={tag} className="px-2 py-1 rounded-full text-xs font-medium bg-gray-200 text-gray-800">
@@ -99,7 +99,7 @@ const RecipeDetail = () => {
             </span>
           ))}
         </div>
-      )}
+      )} */}
     </div>
   );
 };
