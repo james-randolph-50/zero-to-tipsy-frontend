@@ -1,15 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
+import type { Recipe } from "../types";
 
-type Recipe = {
-  id: number;
-  image?: string;
-  title: string;
-  description: string;
-  // tags: string[];
-  steps: string[];
-  ingredients: string[];
-};
+const API_URL = import.meta.env.VITE_API_URL;
+
 
 const RecipeDetail = () => {
   const { documentId } = useParams();
@@ -22,7 +16,7 @@ const RecipeDetail = () => {
       try {
         setLoading(true);
         setError(null);
-        const response = await fetch(`http://localhost:1337/api/recipes?filters[documentId][$eq]=${documentId}&populate=*`);
+        const response = await fetch(`${API_URL}/api/recipes?filters[documentId][$eq]=${documentId}&populate=*`);
         if (!response.ok) {
           throw new Error("Failed to fetch recipe");
         }
@@ -31,30 +25,17 @@ const RecipeDetail = () => {
         if (!item) {
           throw new Error("Recipe not found");
         }
-        const steps = item.steps
-        .map((step: any) => step.children.map((child: any) => child.text).join(' '))
-        .filter((text: string) => text.trim() !== '');
-
-        const ingredients = item.ingredients
-  .flatMap((ingredient: any) => 
-    ingredient.children.map((child: any) => {
-      if (child.type === 'list-item') {
-        return child.children.map((c: any) => c.text).join(' ');
-      }
-      return child.text;
-    })
-  )
-  .filter((text: string) => text.trim() !== '');
 
 
         const mapped: Recipe = {
           id: item.id,
+          documentId: item.documentId,
           title: item.title,
           description: item.description,
-          // tags: item.tag ? [item.tag] : [],
-          image: item.image?.url ? `${item.image.url}` : undefined,
-          steps,
-          ingredients,
+          category: item.category || [],
+          image: item.image?.url ? { url: item.image.url, alt: item.title } : { url: '', alt: item.title },
+          ingredients: item.ingredients || [],
+          instructions: item.instructions || [],
         };
 
         setRecipe(mapped);
@@ -86,11 +67,18 @@ const RecipeDetail = () => {
         </Link>
       </div>
       <h1 className="text-3xl font-bold mb-4">{recipe.title}</h1>
-      {recipe.image && (
-        <img src={recipe.image} alt={recipe.title} className="w-full h-64 object-cover rounded-lg mb-4" />
+      {recipe.image && recipe.image.url && (
+        <img src={recipe.image.url} alt={recipe.image.alt || recipe.title} className="w-full h-64 object-cover rounded-lg mb-4" />
       )}
       <p className="text-gray-700 mb-4">{recipe.description}</p>
-      <p className="text-gray-700 mb-4">{recipe.ingredients}</p>
+      <div className="text-gray-700 mb-4">
+        <h3 className="font-bold mb-2">Ingredients:</h3>
+        <ul className="list-disc list-inside">
+          {recipe.ingredients.map((ingredient, index) => (
+            <li key={index}>{ingredient.children.map(child => child.children.map(c => c.text).join('')).join('')}</li>
+          ))}
+        </ul>
+      </div>
       {/* {recipe.tags.length > 0 && (
         <div className="flex flex-wrap gap-2">
           {recipe.tags.map(tag => (
