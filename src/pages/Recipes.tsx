@@ -13,7 +13,6 @@ type Recipe = {
   instructions: any[];
   ingredients: any[];
 };
-console.log("Recipe:", Recipe);
 
 const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
 
@@ -27,7 +26,7 @@ const Recipes = () => {
       .then(setRecipes)
       .catch((error) => console.error("Failed to fetch recipes:", error));
   }, []);
-
+console.log("recipes:", recipes);
   // Filter recipes by search text and selected tags
   const filteredRecipes = recipes.filter((recipe) => {
     const matchesSearch =
@@ -67,7 +66,7 @@ const Recipes = () => {
       />
 
       {/* Tags filter */}
-      <div className="flex gap-2 mb-6 flex-wrap">
+      {/* <div className="flex gap-2 mb-6 flex-wrap">
         {allTags.map((tag) => (
           <button
             key={tag}
@@ -81,7 +80,7 @@ const Recipes = () => {
             {tag}
           </button>
         ))}
-      </div>
+      </div> */}
 
       {/* Recipes grid */}
       <AnimatePresence mode="wait">
