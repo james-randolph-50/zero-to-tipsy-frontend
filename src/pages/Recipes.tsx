@@ -9,7 +9,7 @@ type Recipe = {
   image?: string;
   title: string;
   description: string;
-  tags: string[];
+  tags?: string[];
   instructions: any[];
   ingredients: any[];
 };
