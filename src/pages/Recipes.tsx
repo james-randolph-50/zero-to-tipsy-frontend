@@ -14,7 +14,7 @@ type Recipe = {
   ingredients: any[];
 };
 
-const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
+// const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
