@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import RecipeCard from "../components/RecipeCard";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";  
 import { fetchRecipes } from "../lib/strapi";
 
 type Recipe = {
@@ -14,7 +14,7 @@ type Recipe = {
   ingredients: any[];
 };
 
-// const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
+const allTags = ["Boozy", "Refreshing", "Batch", "Mocktail", "Warm", "Shot"];
 
 const Recipes = () => {
   const [recipes, setRecipes] = useState<Recipe[]>([]);
@@ -66,7 +66,7 @@ console.log("recipes:", recipes);
       />
 
       {/* Tags filter */}
-      {/* <div className="flex gap-2 mb-6 flex-wrap">
+      <div className="flex gap-2 mb-6 flex-wrap">
         {allTags.map((tag) => (
           <button
             key={tag}
@@ -80,7 +80,7 @@ console.log("recipes:", recipes);
             {tag}
           </button>
         ))}
-      </div> */}
+      </div>
 
       {/* Recipes grid */}
       <AnimatePresence mode="wait">
